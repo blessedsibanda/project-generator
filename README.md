@@ -1,5 +1,4 @@
-# project-generator
-## Flask Web Project Generator
+# Flask Web Project Generator
 
 ```$ git clone https://github.com/blessedsibanda/project-generator.git```
 
