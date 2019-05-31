@@ -3,9 +3,11 @@
 
 ```$ git clone https://github.com/blessedsibanda/project-generator.git```
 
-```$ cd project-generator```
+```$ mv project-generator <your-project-name>```
 
-```$ rm -rf .git```
+```$ cd <your-project-name>```
+
+```$ rm -rf .git*```
 
 Create a virtualenv
 
