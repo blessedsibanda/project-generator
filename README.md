@@ -7,11 +7,11 @@
 
 ```$ cd <your-project-name>```
 
-```$ rm -rf .git*```
+```$ rm -rf .git```
 
 Create a virtualenv
 
-```$ python3 -m venv venv```
+```$ virtualenv venv```
 
 ```$ source venv/bin/activate```
 
@@ -22,6 +22,8 @@ Install Flask
 set FLASK_APP environmental varible
 
 ```$ export FLASK_APP=manage.py```
+
+```$ export FLASK_ENV='development'```
 
 Run the flask app
 
