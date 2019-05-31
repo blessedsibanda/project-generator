@@ -5,6 +5,8 @@
 
 ```$ cd project-generator```
 
+```$ rm -rf .git```
+
 Create a virtualenv
 
 ```$ python3 -m venv venv```
