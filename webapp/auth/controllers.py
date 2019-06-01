@@ -1,7 +1,9 @@
 from flask import (Blueprint, flash, render_template, 
-    request, redirect, url_for)
+    request, redirect, url_for, jsonify)
 from flask_login import login_user, logout_user
+from flask_jwt_extended import create_access_token
 
+from .import authenticate
 from webapp import db  
 from .forms import LoginForm, RegisterForm
 from .models import User
@@ -42,3 +44,19 @@ def logout():
     logout_user()
     flash('You have been logged out.', 'success')
     return redirect(url_for('main.index'))
+
+@auth_blueprint.route('/api', methods=['POST'])
+def api():
+    if not request.is_json:
+        return jsonify({ 'msg': 'Missing JSON in request'}), 400
+    username = request.json.get('username', None)
+    password = request.json.get('password', None)
+    if not username:
+        return jsonify({ 'message': 'Missing username parameter'}), 400
+    if not password:
+        return jsonify({ 'message': 'Missing password parameter'}), 400
+    user = authenticate(username, password)
+    if not user:
+        return jsonify({ 'message': 'Bad username or password'}), 401
+    access_token = create_access_token(identity=user.id)
+    return jsonify(access_token=access_token), 200
