@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm as Form  
-from wtforms import StringField, BooleanField, PasswordField
+from wtforms import StringField, BooleanField, PasswordField, SubmitField, HiddenField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 from .models import User
@@ -8,7 +8,9 @@ from .models import User
 class LoginForm(Form):
     email = StringField('Email', [DataRequired(), Email()])
     password = PasswordField('Password', [DataRequired()])
-    remember = BooleanField("Remember Me")
+    remember = BooleanField("Keep me logged in")
+
+    submit = SubmitField('Login')
 
     def validate(self):
         is_valid = super(LoginForm, self).validate()
@@ -24,11 +26,14 @@ class LoginForm(Form):
         return True
 
 
+
 class RegisterForm(Form):
     username = StringField('Username', [DataRequired(), Length(min=2,max=255)])
     email = StringField('Email', [DataRequired(), Email()])
     password = PasswordField('Password', [DataRequired(), Length(min=8)])
-    confirm_password = PasswordField('Confirm Password', [DataRequired(), EqualTo('password')])
+    confirm_password = PasswordField('Confirm Password', [DataRequired(), 
+        EqualTo('password', message='Passwords must match')])
+    submit = SubmitField('Register')
 
     def validate(self):
         is_valid = super(RegisterForm, self).validate()

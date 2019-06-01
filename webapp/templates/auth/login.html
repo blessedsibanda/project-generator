@@ -6,14 +6,15 @@
     <div class="row">
         <div class="col-md-4 col-sm-2 col-xs-1"></div>
         <div class="col-md-4 col-sm-8 col-xs-10">
-            <h1>Login Here</h1>  <hr>
+            <h1>Login Here</h1>  <hr>            
             <form action="{{ url_for('auth.login') }}" method="post">
                 {{ form.hidden_tag() }}
+                <input type="hidden" name="next" value="{{ next }}">
                 <div class="form-group">
                     {{ form.email.label }}
                     {% if form.email.errors %}
                         {% for e in form.email.errors %}
-                            <p class="text-danger">{{ e }}</p>
+                            <p class="text-danger small">{{ e }}</p>
                         {% endfor %}
                     {% endif %}
                     {{ form.email(class_='form-control') }}
@@ -22,7 +23,7 @@
                     {{ form.password.label }}
                     {% if form.password.errors %}
                         {% for e in form.password.errors %}
-                            <p class="text-danger">{{ e }}</p>
+                            <p class="text-danger small">{{ e }}</p>
                         {% endfor %}
                     {% endif %}
                     {{ form.password(class_='form-control') }}
@@ -31,12 +32,13 @@
                     {{ form.remember.label }}
                     {% if form.remember.errors %}
                         {% for e in form.remember.errors %}
-                            <p class="text-danger">{{ e }}</p>
+                            <p class="text-danger small">{{ e }}</p>
                         {% endfor %}
                     {% endif %}
                     {{ form.remember }}
                 </div>
-                <input type="submit" value="Login" class='btn btn-primary'>
+                <button type='submit' class='btn btn-secondary'>
+                    Login <i class='fas fa-sign-in-alt'></i></button>
                 <span>Not registered? <a href="{{ url_for('auth.register') }}">Register Here</a></span>
             </form>
         </div>

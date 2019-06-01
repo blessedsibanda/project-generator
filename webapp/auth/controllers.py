@@ -19,12 +19,16 @@ auth_blueprint = Blueprint(
 @auth_blueprint.route('login/', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    next = request.args.get('next')
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         login_user(user, remember=form.remember.data)
-        flash('Login successful.', 'success')
-        return redirect(url_for('main.index'))
-    return render_template('login.html', form=form)
+        flash('Login successful.', 'success')  
+        next = request.form['next']
+        if next is None or not next.startswith('/'):
+            next = url_for('main.index')
+        return redirect(next)
+    return render_template('login.html', form=form, next=next)
 
 @auth_blueprint.route('register/', methods=['GET', 'POST'])
 def register():
