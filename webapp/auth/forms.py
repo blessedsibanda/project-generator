@@ -31,7 +31,7 @@ class RegisterForm(Form):
     confirm_password = PasswordField('Confirm Password', [DataRequired(), EqualTo('password')])
 
     def validate(self):
-        is_valid = super(LoginForm, self).validate()
+        is_valid = super(RegisterForm, self).validate()
         if not is_valid:
             return False
         user = User.query.filter_by(email=self.email.data).first()

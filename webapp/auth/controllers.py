@@ -2,6 +2,7 @@ from flask import (Blueprint, flash, render_template,
     request, redirect, url_for)
 from flask_login import login_user, logout_user
 
+from webapp import db  
 from .forms import LoginForm, RegisterForm
 from .models import User
 
@@ -27,5 +28,17 @@ def login():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        pass
+        new_user = User(form.username.data)
+        new_user.email = form.email.data    
+        new_user.set_password(form.password.data)
+        db.session.add(new_user)
+        db.session.commit()  
+        flash('Registration successful, you can now login', 'success')
+        return redirect(url_for('auth.login'))
     return render_template('register.html', form=form)
+
+@auth_blueprint.route('/logout', methods=['GET','POST'])
+def logout():
+    logout_user()
+    flash('You have been logged out.', 'success')
+    return redirect(url_for('main.index'))

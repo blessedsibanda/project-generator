@@ -36,6 +36,9 @@ class User(db.Model):
                 return True 
         return False
 
+    def get_id(self):
+        return str(self.id)
+
     @property
     def is_authenticated(self):
         if isinstance(self, AnonymousUserMixin):
