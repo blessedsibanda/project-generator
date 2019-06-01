@@ -10,6 +10,7 @@ migrate = Migrate()
 def create_app(config_name):
     from .main import create_module_main
     from .api import create_module_api
+    from .auth import create_module_auth
 
     app = Flask(__name__)
 
@@ -20,5 +21,6 @@ def create_app(config_name):
     
     create_module_main(app)
     create_module_api(app)
+    create_module_auth(app)
 
     return app
