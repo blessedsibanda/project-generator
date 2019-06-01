@@ -1,7 +1,54 @@
 {% extends 'base.html' %}
 
-{% block title %}Login{% endblock title %}
+{% block title %}Register{% endblock title %}
 
 {% block body %}
-    <h1>Register Here</h1>
+    <div class="row">
+        <div class="col-md-4 col-sm-2 col-xs-1"></div>
+        <div class="col-md-4 col-sm-8 col-xs-10">
+            <h1>Register Here</h1> <hr>
+            <form action="{{ url_for('auth.register') }}" method="post">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.username.label }}
+                    {% if form.username.errors %}
+                        {% for e in form.username.errors %}
+                            <p class="text-danger">{{ e }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    {{ form.username(class_='form-control') }}
+                </div>
+                <div class="form-group">
+                    {{ form.email.label }}
+                    {% if form.email.errors %}
+                        {% for e in form.email.errors %}
+                            <p class="text-danger">{{ e }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    {{ form.email(class_='form-control') }}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label }}
+                    {% if form.password.errors %}
+                        {% for e in form.password.errors %}
+                            <p class="text-danger">{{ e }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    {{ form.password(class_='form-control') }}
+                </div>
+                <div class="form-group">
+                    {{ form.confirm_password.label }}
+                    {% if form.confirm_password.errors %}
+                        {% for e in form.confirm_password.errors %}
+                            <p class="text-danger">{{ e }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    {{ form.confirm_password(class_='form-control') }}
+                </div>
+                <input type="submit" value="Register" class='btn btn-primary'>
+                <span>Already registered? <a href="{{ url_for('auth.login') }}">Login Here</a></span>
+            </form>
+        </div>
+        <div class="col-md-4 col-sm-2 col-xs-1"></div>
+    </div>
 {% endblock body %}

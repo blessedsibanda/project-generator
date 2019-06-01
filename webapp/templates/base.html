@@ -4,10 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Boostrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <title>MySite | {% block title %}Home{% endblock title %}</title>
 </head>
 <body>
-    {% block body %}
-    {% endblock body %}
+        
+    {% include 'includes/navbar.html' %}
+    <div class="container-fluid">
+        {% include 'includes/flash_messages.html' %}
+        {% block body %}{% endblock body %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
 </body>
 </html>

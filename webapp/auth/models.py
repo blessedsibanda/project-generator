@@ -1,4 +1,6 @@
-from webapp import db   
+from webapp import db 
+from flask_login import AnonymousUserMixin
+from . import bcrypt  
 
 roles = db.Table(
     'role_users',
@@ -17,10 +19,33 @@ class User(db.Model):
         backref=db.backref('users', lazy='dynamic'))
 
     def __init__(self, username):
-        self.username = username
+        self.username = username    
 
     def __repr__(self):
         return f'<User: {self.username}'
+
+    def set_password(self, password):
+        self.password = bcrypt.generate_password_hash(password)
+
+    def check_password(self, password):
+        return bcrypt.check_password_hash(self.password, password)
+
+    def has_role(self, name):
+        for role in self.roles:
+            if role.name == name:
+                return True 
+        return False
+
+    @property
+    def is_authenticated(self):
+        if isinstance(self, AnonymousUserMixin):
+            return False
+        else:
+            return True
+
+    @property
+    def is_active(self):
+        return True
 
 
 class Role(db.Model):

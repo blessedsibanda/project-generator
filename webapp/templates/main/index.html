@@ -3,5 +3,9 @@
 {% block title %}Index{% endblock title %}
 
 {% block body %}
-    <h1>Welcome to MySite</h1>
+    <div class="jumbotron text-center">
+        <h1>Welcome to MySite</h1>
+        <h4>To get started <a href="{{ url_for('auth.login') }}" 
+            class='btn btn-outline-primary btn-lg'>Click here</a></h4>
+    </div>
 {% endblock body %}
